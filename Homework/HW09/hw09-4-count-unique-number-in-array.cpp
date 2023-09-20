@@ -48,50 +48,41 @@
         9 -> 2 values.
 */
 #include <stdio.h>
+
 int main() {
-    
-    int N, i, j ;
+    int N, hold = 0;
+    int arr[ 100 ];
 
-    printf( "Input N :" );
-    scanf( "%d", &N );
+    printf( "Input N:\n" ) ;
+    scanf( "%d", &N ) ;
 
-    int num[ N ] ;
-    int unique[ N ] ;
-    int count[ N ] ;
-    int un_c = 0 ;
-    int b_num = 1 ;
-
-    for ( i = 0 ; i < N ; i++){
-        printf( "Element[%d] :\n", i ) ;
-        scanf( "%d", &num[ i ] );
+    for ( int i = 0 ; i < N ; i++ ) {
+        printf( "Element[%d]:\n", i ) ;
+        scanf( "%d", &arr[ i ] ) ;
     }
 
-    for ( i = 0 ; i < N ; i++) {
-        count[ i ] = 0 ;
-    }
-
-    for ( i = 0 ; i < N ; i++) {
-        int bool_num = 1 ;
-        for ( j = 0 ; j < un_c ; j++) {
-            if ( num[ i ] == unique[ j ] ) {
-                count[ j ]++ ;
-                bool_num = 0 ;
-                break;
+    for ( int i = 0 ; i < N ; i++ ) {
+        for ( int j = i + 1 ; j < N ; j++ ) {
+            if ( arr[ i ] > arr[ j ] ) {
+                hold = arr[ j ] ;
+                arr[ j ] = arr[ i ] ;
+                arr[ i ] = hold ;
             }
-            
-        }
-        if ( bool_num ) {
-            unique[ un_c ] = num[ i ] ;
-            count[ un_c ] = 1 ;
-            un_c++ ;
         }
     }
 
-    for ( i = 0 ; i < un_c ; i++) {
-        printf( "%d -> %d value%s.\n", unique[ i ], count[ i ], (count[ i ] == 1) ? "" : "s" );
+    for ( int i = 0 ; i < N ; i++ ) {
+        int same = 1;
+        while (i < N - 1 && arr[i] == arr[i + 1]) {
+            same++ ;
+            i++ ;
+        }
+        if ( same > 1 ) {
+            printf( "%d -> %d values.\n", arr[i], same ) ;
+        } else {
+            printf( "%d -> %d value.\n", arr[i], same ) ;
+        }
     }
-    
-    
-    
+
     return 0;
 }
