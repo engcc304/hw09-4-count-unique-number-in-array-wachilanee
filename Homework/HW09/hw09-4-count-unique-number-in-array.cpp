@@ -47,3 +47,42 @@
         7 -> 1 value.
         9 -> 2 values.
 */
+#include <stdio.h>
+
+int main() {
+    int N, hold = 0;
+    int arr[ 100 ];
+
+    printf( "Input N:\n" ) ;
+    scanf( "%d", &N ) ;
+
+    for ( int i = 0 ; i < N ; i++ ) {
+        printf( "Element[%d]:\n", i ) ;
+        scanf( "%d", &arr[ i ] ) ;
+    }
+
+    for ( int i = 0 ; i < N ; i++ ) {
+        for ( int j = i + 1 ; j < N ; j++ ) {
+            if ( arr[ i ] > arr[ j ] ) {
+                hold = arr[ j ] ;
+                arr[ j ] = arr[ i ] ;
+                arr[ i ] = hold ;
+            }
+        }
+    }
+
+    for ( int i = 0 ; i < N ; i++ ) {
+        int same = 1;
+        while (i < N - 1 && arr[i] == arr[i + 1]) {
+            same++ ;
+            i++ ;
+        }
+        if ( same > 1 ) {
+            printf( "%d -> %d values.\n", arr[i], same ) ;
+        } else {
+            printf( "%d -> %d value.\n", arr[i], same ) ;
+        }
+    }
+
+    return 0;
+}
